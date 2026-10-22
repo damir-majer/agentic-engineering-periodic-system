@@ -12,6 +12,21 @@ The interactive table: https://ase.academy/agentic-engineering/periodic-system/
 
 [![The table: nine groups in four rows, each element with its ID, symbol and name](images/table.png)](https://ase.academy/agentic-engineering/periodic-system/)
 
+## In your AI assistant
+
+A free, read-only MCP server hands the table to your assistant: the elements,
+how to check each test clause by clause, and the reading rules. Add a remote
+(HTTP) MCP server with this address; in Claude Code:
+
+```
+claude mcp add --transport http periodic-system https://ase.academy/mcp
+```
+
+Then ask, in a repository: "Check this repository against the Agentic
+Engineering Periodic System." Your assistant reads your files itself; the server
+does not ask for your code and does not keep what you send. How to add it
+elsewhere: https://ase.academy/mcp
+
 ## What is in this repository
 
 | File                                         | What it holds                                                                           |

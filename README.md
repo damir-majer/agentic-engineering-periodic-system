@@ -22,10 +22,16 @@ how to check each test clause by clause, and the reading rules. Add a remote
 claude mcp add --transport http periodic-system https://ase.academy/mcp
 ```
 
+In Codex:
+
+```
+codex mcp add periodic-system --url https://ase.academy/mcp
+```
+
 Then ask, in a repository: "Check this repository against the Agentic
 Engineering Periodic System." Your assistant reads your files itself; the server
-does not ask for your code and does not keep what you send. How to add it
-elsewhere: https://ase.academy/mcp
+does not ask for your code and does not keep what you send. Other tools (Cursor,
+VS Code and more): https://ase.academy/mcp
 
 ## What is in this repository
 

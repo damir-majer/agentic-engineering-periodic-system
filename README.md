@@ -10,17 +10,19 @@ handled.
 
 The interactive table: https://ase.academy/agentic-engineering/periodic-system/
 
+[![The table: nine groups in four rows, each element with its ID, symbol and name](images/table.png)](https://ase.academy/agentic-engineering/periodic-system/)
+
 ## What is in this repository
 
-| File                  | What it holds                                                                           |
-| --------------------- | --------------------------------------------------------------------------------------- |
-| `agent-reference.md`  | The whole table as one readable list, with the reading guide first. Start here.         |
-| `data/elements.json`  | Every element: problem, observable test, when it applies, when it adds work, activities |
-| `data/clauses.json`   | Tests split into clauses, with the kind of evidence each clause needs                   |
-| `data/relations.json` | Pairs of elements that are read together, with when, why and the limit                  |
-| `data/catalogue.json` | Columns, rows, roles and the gaps in the grid                                           |
-| `CITATION.cff`        | How to cite this release                                                                |
-| `CHANGELOG.md`        | What changed in each release                                                            |
+| File                                         | What it holds                                                                           |
+| -------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [`agent-reference.md`](agent-reference.md)   | The whole table as one readable list, with the reading guide first. Start here.         |
+| [`data/elements.json`](data/elements.json)   | Every element: problem, observable test, when it applies, when it adds work, activities |
+| [`data/clauses.json`](data/clauses.json)     | Tests split into clauses, with the kind of evidence each clause needs                   |
+| [`data/relations.json`](data/relations.json) | Pairs of elements that are read together, with when, why and the limit                  |
+| [`data/catalogue.json`](data/catalogue.json) | Columns, rows, roles and the gaps in the grid                                           |
+| [`CITATION.cff`](CITATION.cff)               | How to cite this release                                                                |
+| [`CHANGELOG.md`](CHANGELOG.md)               | What changed in each release                                                            |
 
 Element IDs (`ae-006`) are stable. An ID is never renumbered or reused; a
 retired element keeps its ID and points to the element that replaces it.
@@ -38,9 +40,9 @@ project.
 ## Licence
 
 All content in this repository is licensed under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (`LICENSE`). You may
-share and adapt it, also commercially, if you give credit, link the licence and
-say what you changed. Attribution example:
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+([`LICENSE`](LICENSE)). You may share and adapt it, also commercially, if you
+give credit, link the licence and say what you changed. Attribution example:
 
 > Agentic Engineering Periodic System, release 2026.4.1, by Damir Majer (ASE
 > Academy), https://github.com/damir-majer/agentic-engineering-periodic-system, CC BY 4.0.

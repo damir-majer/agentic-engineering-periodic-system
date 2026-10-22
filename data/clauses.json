@@ -1,0 +1,399 @@
+{
+  "ae-001": [
+    {
+      "text": "You can explain unfamiliar code, yours or the agent's, before you ask an agent to change it",
+      "evidence": [
+        "person"
+      ],
+      "needs": "Checked live: you explain the code in your own words before delegating. Its pinned form is characterization tests you read and accepted"
+    }
+  ],
+  "ae-004": [
+    {
+      "text": "Every \"done\" comes with evidence tied to the acceptance criteria",
+      "evidence": [
+        "run"
+      ],
+      "needs": "The run's own record of each done, against criteria written before the run; a summary written afterwards is a claim"
+    },
+    {
+      "text": "the command that ran and its output",
+      "evidence": [
+        "run"
+      ],
+      "needs": "The command log or CI output itself, kept where the agent cannot write"
+    },
+    {
+      "text": "a check that could not run or errored is reported as \"not verified\", never as done",
+      "evidence": [
+        "run"
+      ],
+      "needs": "Run records in which a failed or skipped check appears as not verified"
+    }
+  ],
+  "ae-005": [
+    {
+      "text": "When a run goes wrong, you find the step where it went wrong",
+      "evidence": [
+        "person",
+        "run"
+      ],
+      "needs": "A diagnosis that names the failing step of a specific run"
+    },
+    {
+      "text": "check that step against a record the agent cannot write: the command log, CI or the repository",
+      "evidence": [
+        "run",
+        "repository"
+      ],
+      "needs": "The command log, CI result or repository state for that step, compared with what the agent said"
+    }
+  ],
+  "ae-006": [
+    {
+      "text": "Secret files are denied to the agent",
+      "evidence": [
+        "repository",
+        "environment"
+      ],
+      "needs": "The deny rules in the project's agent settings, and the effective settings on the machine or runner"
+    },
+    {
+      "text": "credentials stay outside its environment",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "The agent's environment, inspected for credentials"
+    },
+    {
+      "text": "a planted fake credential is blocked at the push and in outgoing requests",
+      "evidence": [
+        "environment",
+        "run"
+      ],
+      "needs": "A planted fake credential and the run records of both blocks; pinned as a gate check"
+    }
+  ],
+  "ae-011.01": [
+    {
+      "text": "Long work is split into fresh sessions at planned points",
+      "evidence": [
+        "run"
+      ],
+      "needs": "Session records showing the planned split points"
+    },
+    {
+      "text": "each with a written handover a person has read",
+      "evidence": [
+        "repository",
+        "person"
+      ],
+      "needs": "The handover notes kept with the change, and who read them"
+    },
+    {
+      "text": "a session that repeats itself or drops a stated constraint ends early, with the same handover",
+      "evidence": [
+        "run"
+      ],
+      "needs": "A session record ending early on repetition or a dropped constraint"
+    }
+  ],
+  "ae-017": [
+    {
+      "text": "A colleague runs your agent setup without you, from what is written down",
+      "evidence": [
+        "person"
+      ],
+      "needs": "The colleague's run, without the owner"
+    },
+    {
+      "text": "a dated record of that run shows the same checks fired",
+      "evidence": [
+        "run"
+      ],
+      "needs": "The dated record of the colleague's run, listing the checks that fired"
+    },
+    {
+      "text": "the run log was kept",
+      "evidence": [
+        "run"
+      ],
+      "needs": "The run log of that run"
+    },
+    {
+      "text": "the results stayed within the spread of your own repeated runs",
+      "evidence": [
+        "over-time"
+      ],
+      "needs": "Your own repeated runs of the same tasks, and the colleague's results beside them"
+    }
+  ],
+  "ae-019": [
+    {
+      "text": "Before code is written, the plan names the design choices the agent made (a new dependency, data store, remote call or boundary)",
+      "evidence": [
+        "repository"
+      ],
+      "needs": "A plan dated before the first commit of the change, naming its design choices"
+    },
+    {
+      "text": "what each costs",
+      "evidence": [
+        "repository"
+      ],
+      "needs": "The cost of each named choice, in the same plan"
+    },
+    {
+      "text": "a person accepts them",
+      "evidence": [
+        "person"
+      ],
+      "needs": "An acceptance by a person, recorded where the agent cannot write, before the code"
+    }
+  ],
+  "ae-020": [
+    {
+      "text": "The model, the coding tool and the skills, plugins and tool servers the agent uses are pinned to a version",
+      "evidence": [
+        "repository",
+        "environment"
+      ],
+      "needs": "Lockfiles and configuration in the repository, and the versions actually installed on each machine or runner"
+    },
+    {
+      "text": "reviewed like code",
+      "evidence": [
+        "repository"
+      ],
+      "needs": "Changes to those pins go through the same review as code"
+    },
+    {
+      "text": "delegated work names its model (no automatic choice or fallback)",
+      "evidence": [
+        "repository",
+        "run"
+      ],
+      "needs": "Task records or runner configuration naming the model, and run records showing no automatic choice or fallback"
+    },
+    {
+      "text": "a skill stays only while runs with and without it show that it helps",
+      "evidence": [
+        "over-time"
+      ],
+      "needs": "Repeated comparison runs with and without each skill, kept current as skills and models change"
+    }
+  ],
+  "ae-022": [
+    {
+      "text": "The merge verdict comes from the pipeline",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "The branch rule or merge setting that requires the pipeline's result"
+    },
+    {
+      "text": "it runs the check on the committed tree in a clean checkout",
+      "evidence": [
+        "repository",
+        "run"
+      ],
+      "needs": "The pipeline definition (in the repository, or in the CI system where it lives there) and a run of it"
+    },
+    {
+      "text": "posts the result under its own identity",
+      "evidence": [
+        "run"
+      ],
+      "needs": "A posted result whose author is the pipeline, not a person or the agent"
+    },
+    {
+      "text": "the agent can neither change, skip nor pass that check on its own",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "A planted attempt by the agent's identity to change, skip or pass the check, refused"
+    },
+    {
+      "text": "a required check that was skipped or did not finish blocks the merge",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "A planted skipped run of a required check (a fork, a bot or a run condition), refused at merge"
+    },
+    {
+      "text": "every change to the check is reviewed by a person",
+      "evidence": [
+        "person",
+        "repository"
+      ],
+      "needs": "Review records by a person on every change to the pipeline or its checks"
+    }
+  ],
+  "ae-023": [
+    {
+      "text": "Every unattended run has a cap set outside the agent (turns, time or spend)",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "Runner or managed configuration the agent cannot reach, with the cap set"
+    },
+    {
+      "text": "a stop it cannot talk past",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "A stop path enforced outside the agent's process and permissions"
+    },
+    {
+      "text": "a run that reaches the cap ends as not verified",
+      "evidence": [
+        "run"
+      ],
+      "needs": "The record of a capped run, kept where the agent cannot write, ending as not verified"
+    },
+    {
+      "text": "logs outside its write access show what it changed",
+      "evidence": [
+        "run"
+      ],
+      "needs": "Runner, pipeline or audit logs the agent cannot write"
+    },
+    {
+      "text": "its work sits in a branch you can drop",
+      "evidence": [
+        "repository"
+      ],
+      "needs": "A branch or worktree per run, separate from the protected branch"
+    },
+    {
+      "text": "a dated drill shows the stop ends every process the run started and revokes every credential the run was issued or obtained",
+      "evidence": [
+        "person",
+        "environment"
+      ],
+      "needs": "A dated drill record: a person stops a run, confirms its processes ended and every credential it was issued or obtained no longer works"
+    }
+  ],
+  "ae-024": [
+    {
+      "text": "The agent runs in a sandbox with only the rights its task needs",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "The sandbox and permission configuration of the runner or machine the agent used"
+    },
+    {
+      "text": "set in managed settings a project file cannot loosen",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "Managed settings above the project level, and a project file that tries to loosen them without effect"
+    },
+    {
+      "text": "a planted denied action is refused",
+      "evidence": [
+        "environment",
+        "run"
+      ],
+      "needs": "A planted denied action and the run record of its refusal"
+    },
+    {
+      "text": "every agent tool installed on the machine, used or not, refuses to start in its bypass mode",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "An inventory of installed agent tools and a start attempt in bypass mode for each, refused"
+    }
+  ],
+  "ae-026": [
+    {
+      "text": "The team measured before and after on comparable work over at least a quarter, paired every speed figure with a quality figure, names what else changed in between, and every figure says what it counts, over which window and population",
+      "evidence": [
+        "over-time",
+        "person"
+      ],
+      "needs": "Checked live, at team level: before-and-after measurements over a quarter, kept outside any one build"
+    }
+  ],
+  "ae-029": [
+    {
+      "text": "The team's shared harness (instructions, skills, hooks) has a named owner",
+      "evidence": [
+        "repository"
+      ],
+      "needs": "The harness in its own place with a named owner"
+    },
+    {
+      "text": "changes only through reviewed changes",
+      "evidence": [
+        "repository",
+        "person"
+      ],
+      "needs": "Review records by a person on every change to the harness"
+    },
+    {
+      "text": "every project goes through the same checks and approvals to merge",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "The merge rules of every project, compared"
+    },
+    {
+      "text": "what must hold sits in hooks or managed settings that no project or personal file can loosen",
+      "evidence": [
+        "environment"
+      ],
+      "needs": "Managed settings or hooks above the project, and a project or personal file that tries to loosen them without effect"
+    }
+  ],
+  "ae-034": [
+    {
+      "text": "Each feature you build starts from a user problem",
+      "evidence": [
+        "repository"
+      ],
+      "needs": "A written user problem for each feature, dated before the build"
+    },
+    {
+      "text": "a stop criterion agreed before building",
+      "evidence": [
+        "repository",
+        "person"
+      ],
+      "needs": "The stop criterion, dated before building, and who agreed it"
+    },
+    {
+      "text": "you check the evidence on the agreed date after it ships",
+      "evidence": [
+        "over-time",
+        "person"
+      ],
+      "needs": "A dated check of the evidence on or after the agreed date"
+    }
+  ],
+  "ae-037": [
+    {
+      "text": "Every change made through the team's agent runner carries its one marker, written by the tooling",
+      "evidence": [
+        "repository"
+      ],
+      "needs": "The marker in the history of each agent change, written by the harness configuration"
+    },
+    {
+      "text": "the pipeline refuses a commit from an agent's identity without it",
+      "evidence": [
+        "repository",
+        "environment"
+      ],
+      "needs": "The pipeline or branch rule (usually defined in the repository) and a planted unmarked commit it refused"
+    },
+    {
+      "text": "every agent run in the log links to the changes it made",
+      "evidence": [
+        "run",
+        "over-time"
+      ],
+      "needs": "The run log outside the repository, cross-checked against the changes release after release"
+    }
+  ]
+}

@@ -1,0 +1,321 @@
+{
+  "name": "Agentic Engineering Periodic System",
+  "release": "2026.4.1",
+  "schemaVersion": "0.1.0",
+  "groups": [
+    {
+      "key": "fundamentals",
+      "name": "Fundamentals",
+      "description": "The engineering that lets you steer an agent"
+    },
+    {
+      "key": "shaping",
+      "name": "Shaping",
+      "description": "Deciding what to build, and how carefully"
+    },
+    {
+      "key": "context",
+      "name": "Context",
+      "description": "What the agent knows: instructions, context, skills, tools"
+    },
+    {
+      "key": "delegation",
+      "name": "Delegation",
+      "description": "Running work with agents across the lifecycle"
+    },
+    {
+      "key": "verification",
+      "name": "Verification",
+      "description": "Judging what the agent produced"
+    },
+    {
+      "key": "diagnosis",
+      "name": "Diagnosis",
+      "description": "Finding why it fails, and stopping it"
+    },
+    {
+      "key": "security",
+      "name": "Security",
+      "description": "Input, tools and output as attack surface"
+    },
+    {
+      "key": "adoption",
+      "name": "Adoption",
+      "description": "Spreading the practice, and knowing whether it pays off"
+    },
+    {
+      "key": "ai-products",
+      "name": "AI products",
+      "description": "Software that contains a model: a separate block, read on its own",
+      "elective": true
+    }
+  ],
+  "reaches": [
+    {
+      "key": "task",
+      "name": "Task",
+      "description": "the run loop: one agent run, minutes to hours"
+    },
+    {
+      "key": "change",
+      "name": "Change",
+      "description": "the change loop: one change from plan to merge, hours to days"
+    },
+    {
+      "key": "system",
+      "name": "System",
+      "description": "the setup loop: what every run passes through, weeks"
+    },
+    {
+      "key": "organisation",
+      "name": "Organisation",
+      "description": "the decision loop: what a team decides for everyone, months"
+    }
+  ],
+  "roles": [
+    {
+      "key": "dev",
+      "short": "Developer",
+      "name": "Developer using coding agents",
+      "sub": "Front end, back end, mobile, full stack, ABAP",
+      "core": [
+        "fundamentals",
+        "context",
+        "delegation",
+        "verification",
+        "diagnosis",
+        "security"
+      ],
+      "useful": [
+        "shaping",
+        "adoption"
+      ],
+      "chip": "primary"
+    },
+    {
+      "key": "lead",
+      "short": "Tech lead",
+      "name": "Tech lead or architect",
+      "sub": "Owns design and the merge gate",
+      "core": [
+        "fundamentals",
+        "verification",
+        "diagnosis",
+        "security",
+        "shaping"
+      ],
+      "useful": [
+        "context",
+        "delegation",
+        "adoption"
+      ],
+      "chip": "primary"
+    },
+    {
+      "key": "plat",
+      "short": "Platform",
+      "name": "Platform or DevOps engineer",
+      "sub": "CI, sandboxes, shared tooling",
+      "core": [
+        "context",
+        "verification",
+        "diagnosis",
+        "security"
+      ],
+      "useful": [
+        "delegation",
+        "adoption"
+      ],
+      "chip": "primary"
+    },
+    {
+      "key": "qa",
+      "short": "QA",
+      "name": "QA or test engineer",
+      "sub": "Tests, test data, release checks",
+      "core": [
+        "fundamentals",
+        "verification",
+        "diagnosis"
+      ],
+      "useful": [
+        "security",
+        "delegation"
+      ],
+      "chip": "primary"
+    },
+    {
+      "key": "fde",
+      "short": "FDE",
+      "name": "Forward deployed engineer",
+      "sub": "Builds inside a customer's systems, owns the outcome",
+      "core": [
+        "shaping",
+        "context",
+        "verification",
+        "ai-products"
+      ],
+      "useful": [
+        "fundamentals",
+        "delegation",
+        "security"
+      ],
+      "chip": "primary",
+      "emerging": true
+    },
+    {
+      "key": "pe",
+      "short": "Product engineer",
+      "name": "Product engineer",
+      "sub": "A developer who also decides what to build",
+      "core": [
+        "shaping",
+        "fundamentals",
+        "delegation"
+      ],
+      "useful": [
+        "verification",
+        "ai-products",
+        "adoption"
+      ],
+      "chip": "primary",
+      "emerging": true
+    },
+    {
+      "key": "em",
+      "short": "Eng. manager",
+      "name": "Engineering manager",
+      "sub": "Head of engineering, budget, delivery",
+      "core": [
+        "shaping",
+        "adoption"
+      ],
+      "useful": [
+        "verification",
+        "security",
+        "diagnosis",
+        "delegation"
+      ],
+      "chip": "more"
+    },
+    {
+      "key": "hr",
+      "short": "HR / L&D",
+      "name": "HR or learning and development",
+      "sub": "Plans and approves the year",
+      "core": [],
+      "useful": [
+        "fundamentals",
+        "context",
+        "delegation",
+        "verification",
+        "diagnosis",
+        "security",
+        "shaping",
+        "adoption",
+        "ai-products"
+      ],
+      "chip": "none"
+    },
+    {
+      "key": "sec",
+      "short": "Security",
+      "name": "Security engineer",
+      "sub": "AppSec, threat models, policy",
+      "core": [
+        "security",
+        "verification",
+        "diagnosis"
+      ],
+      "useful": [
+        "context",
+        "adoption"
+      ],
+      "chip": "more"
+    },
+    {
+      "key": "champ",
+      "short": "Champion",
+      "name": "AI champion in a team",
+      "sub": "The colleague everyone asks",
+      "core": [
+        "context",
+        "verification",
+        "adoption"
+      ],
+      "useful": [
+        "fundamentals",
+        "delegation",
+        "diagnosis",
+        "security"
+      ],
+      "chip": "more"
+    },
+    {
+      "key": "pm",
+      "short": "Product",
+      "name": "Product manager or owner",
+      "sub": "Decides what gets built",
+      "core": [
+        "shaping"
+      ],
+      "useful": [
+        "delegation",
+        "adoption",
+        "ai-products"
+      ],
+      "chip": "more"
+    },
+    {
+      "key": "aie",
+      "short": "AI engineer",
+      "name": "AI engineer",
+      "sub": "Builds LLM products: RAG, evals, agents",
+      "core": [
+        "ai-products",
+        "security",
+        "verification"
+      ],
+      "useful": [
+        "fundamentals",
+        "context",
+        "diagnosis"
+      ],
+      "chip": "more"
+    },
+    {
+      "key": "ml",
+      "short": "ML / data",
+      "name": "ML engineer or data scientist",
+      "sub": "Models, pipelines, analysis",
+      "core": [
+        "ai-products"
+      ],
+      "useful": [
+        "fundamentals",
+        "verification"
+      ],
+      "chip": "more"
+    },
+    {
+      "key": "dom",
+      "short": "Domain builder",
+      "name": "Domain expert building with agents",
+      "sub": "Builds apps outside engineering",
+      "core": [],
+      "useful": [],
+      "only": [
+        "ae-030.01"
+      ],
+      "chip": "none"
+    }
+  ],
+  "gaps": [
+    {
+      "group": "adoption",
+      "reach": "task",
+      "kind": "predicted",
+      "candidate": "Show a run"
+    }
+  ]
+}

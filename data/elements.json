@@ -1,0 +1,1388 @@
+[
+  {
+    "id": "ae-001",
+    "symbol": "Rc",
+    "name": "Read unfamiliar code",
+    "group": "fundamentals",
+    "reach": "task",
+    "durability": "years",
+    "problem": "An agent is asked to change code nobody on the team can explain, so nobody can tell whether its change is right.",
+    "observableTest": "You can explain unfamiliar code, yours or the agent's, before you ask an agent to change it.",
+    "notWhen": "Reading in full code the task does not touch: the test asks you to explain the code being changed, not the whole codebase.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every task that touches code you cannot yet explain",
+        "trigger": "A change lands in an unfamiliar module, library or concept"
+      },
+      {
+        "kind": "practice",
+        "cadence": "First two weeks an agent works on an existing codebase, read-only",
+        "trigger": "The team brings an agent to an existing codebase"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every sprint",
+        "trigger": "Nobody can explain a merged agent change"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Before an agent changes code you cannot yet explain: pin its current behaviour with characterization tests that you read and accept (the agent may write them); they keep the explanation as an executable record",
+        "trigger": "A change lands in code nobody on the team can explain"
+      }
+    ],
+    "related": [
+      "ae-013"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-002",
+    "symbol": "In",
+    "name": "Instructions file",
+    "group": "context",
+    "reach": "task",
+    "durability": "months",
+    "problem": "Every session starts by rediscovering how the project builds, tests and names things, and the agent repeats the same mistakes because nothing it reads at the start says otherwise.",
+    "observableTest": "The repository has a short, current instructions file that the agent actually follows.",
+    "notWhen": "Adding lines for what the agent already does right without them, or for rules a hook or check already enforces: they add length without changing behaviour, and a file that keeps growing stops being current.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per repository, checked in CI on every change",
+        "trigger": "A new coding tool or IDE plugin is adopted"
+      },
+      {
+        "kind": "practice",
+        "cadence": "When the same written failure reason recurs in the task log (ae-014), never by habit"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every retrospective, reading the file's diff",
+        "trigger": "A new model, tool version or framework release ships"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per instruction or context document: it names the paths it describes, and a check warns when those paths change and the document does not"
+      },
+      {
+        "kind": "review",
+        "cadence": "At each model change: a few held-back tasks run with and without the file; a rule whose removal changes nothing is deleted, and one that makes results worse is removed at once",
+        "trigger": "A new model or tool version ships, or the file passes its line ceiling"
+      }
+    ],
+    "related": [
+      "ae-029"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-003",
+    "symbol": "Sl",
+    "name": "Small slices",
+    "group": "delegation",
+    "reach": "task",
+    "durability": "years",
+    "problem": "A task comes back as a change too large for one person to review, so it is merged on trust or not really reviewed.",
+    "observableTest": "Each task you hand over fits into one change a person can review.",
+    "notWhen": "Splitting a mechanical change that a check verifies completely (a rename, a formatter run, a regenerated file), where its size does not make review harder.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every task handed to an agent: one thin vertical slice, one pull request",
+        "trigger": "A change grows past what one person can review or explain: split it"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: an issue template or planning skill that cuts thin vertical slices"
+      },
+      {
+        "kind": "review",
+        "cadence": "At each team measurement: change size per delivered slice against the dated baseline",
+        "trigger": "Agent pull requests run larger than the team's usual size"
+      }
+    ],
+    "related": [
+      "ae-013"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-004",
+    "symbol": "Ev",
+    "name": "Evidence before done",
+    "group": "verification",
+    "reach": "task",
+    "durability": "years",
+    "problem": "An agent declares success, but its claim cannot be connected to the acceptance criteria and the output of a relevant check.",
+    "observableTest": "Every \"done\" comes with evidence tied to the acceptance criteria: the command that ran and its output; a check that could not run or errored is reported as \"not verified\", never as done.",
+    "notWhen": "Rerunning a deterministic check whose command and output are already tied to each criterion, with nothing changed in between: the rerun adds reading, not certainty. Where results vary from run to run, repeated runs are evidence.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every task: the command, its output and the commit or run it belongs to",
+        "trigger": "An agent says \"done\""
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: one gate command and a task log the agent cannot write, with three outcomes: passed, failed, not verified"
+      },
+      {
+        "kind": "review",
+        "cadence": "At each team measurement point: re-run the cited evidence of three logged tasks at random",
+        "trigger": "Before the team widens the tasks agents may run without a person watching each run"
+      }
+    ],
+    "related": [
+      "ae-013"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-005",
+    "symbol": "Tx",
+    "name": "Trace the run",
+    "group": "diagnosis",
+    "reach": "task",
+    "durability": "months",
+    "problem": "A run went wrong, and the only account of what happened is the agent's own, which may be the very thing that is wrong.",
+    "observableTest": "When a run goes wrong, you find the step where it went wrong and check that step against a record the agent cannot write: the command log, CI or the repository.",
+    "notWhen": "Reconstructing the whole run when a focused test reproduces a deterministic failure: check the failing step against the test output or the CI record, fix it and add the regression; the rest of the run adds nothing.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every failed or surprising run, before you change prompt, model or code",
+        "trigger": "The agent reports success and the result disagrees"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per team: a run record the agent cannot write, kept for the whole measurement period",
+        "trigger": "A new agent tool or cloud runner with its own retention default is adopted"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every week: the corrections you made more than once"
+      }
+    ],
+    "related": [
+      "ae-014"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-006",
+    "symbol": "Sx",
+    "name": "Secrets stay out",
+    "group": "security",
+    "reach": "task",
+    "durability": "years",
+    "problem": "Credentials sit where the agent can read, print, commit or send them, so one wrong step or one injected instruction leaks them.",
+    "observableTest": "Secret files are denied to the agent, credentials stay outside its environment, and a planted fake credential is blocked at the push and in outgoing requests.",
+    "notWhen": "Adding a second scanner that watches the same paths as one that already blocks the planted fake credential at the push and in outgoing requests: it repeats a check without covering a new path. Checking this never means reading real secrets.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per machine and repository, before the first agent run",
+        "trigger": "A new agent tool, MCP server or cloud agent environment is added"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every agent push: scanned for secrets; a hit blocks the push until a person clears it"
+      },
+      {
+        "kind": "review",
+        "cadence": "At each gate re-test, a planted fake credential must be blocked",
+        "trigger": "The agent's environment, tools or scanner configuration changes"
+      }
+    ],
+    "related": [
+      "ae-024"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-007",
+    "symbol": "Pb",
+    "name": "Problem before prompt",
+    "group": "shaping",
+    "reach": "task",
+    "durability": "years",
+    "problem": "The agent starts on a vague request, builds something plausible, and nobody can say whether it is done, because done was never stated.",
+    "observableTest": "You can state the problem and the done criterion before the agent starts.",
+    "notWhen": "Writing a formal problem statement for a request whose done criterion is already plain in the request itself, such as a typo fix with the check that shows it.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every task, before the first prompt"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Before each run that will be left unattended",
+        "trigger": "An agent is about to run without someone watching"
+      }
+    ],
+    "related": [
+      "ae-004",
+      "ae-003"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-008",
+    "symbol": "Sc",
+    "name": "Shared conventions",
+    "group": "adoption",
+    "reach": "task",
+    "status": "retired",
+    "replacedBy": "ae-029"
+  },
+  {
+    "id": "ae-009",
+    "symbol": "Ka",
+    "name": "Kinds of AI",
+    "group": "ai-products",
+    "reach": "task",
+    "durability": "months",
+    "problem": "A language model does work that plain code or a simpler model would do more cheaply and reliably, so the product inherits cost, latency and unpredictability it did not need.",
+    "observableTest": "Each step that uses a language model has a written reason why plain code or another kind of model would not do, and the steps plain code can do are done by plain code.",
+    "appliesWhen": "Applies when the product, or a script that produces its content, calls a language model. A model used only to write the code does not count.",
+    "notWhen": "Writing a long justification for a step whose need for a language model is not in doubt, such as open-ended text a person reads: one sentence of reason is enough.",
+    "activities": [
+      {
+        "kind": "decision",
+        "cadence": "Once per AI feature or workflow, before the build",
+        "trigger": "A step is proposed for a language model"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every task, before reaching for a model"
+      },
+      {
+        "kind": "review",
+        "cadence": "When a step's volume or its model changes",
+        "trigger": "A failure is traced to work done by the wrong kind of tool"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-010",
+    "symbol": "Tb",
+    "name": "Tests that pin behaviour",
+    "group": "fundamentals",
+    "reach": "change",
+    "durability": "years",
+    "problem": "The agent changes behaviour by mistake and nothing fails, so the regression is found by users, or not at all.",
+    "observableTest": "When the agent changes behaviour by mistake, a test fails: you can show a regression the tests caught.",
+    "notWhen": "Pinning behaviour that is meant to change, or code that is about to be deleted: the test blocks the intended change and is rewritten soon after.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every bug fix and every behaviour change"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository, enforced in CI on every pull request",
+        "trigger": "The test runner or its configuration changes"
+      },
+      {
+        "kind": "review",
+        "cadence": "Nightly mutation run on changed code, where a tool exists",
+        "trigger": "The gate or test configuration changes"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every refactor or bug fix: the agent may not change the tests that pin behaviour; a test change in such a change is refused"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every test the agent wrote during the task: it counts once it fails on a planted defect"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every test the agent removes: a removal map points, for each assertion it carried, to the surviving test that still asserts it"
+      },
+      {
+        "kind": "review",
+        "cadence": "Per test, kept current: flakiness measured; an agent's addition to the quarantine list waits for a named approver; a quarantined test still runs on a schedule outside the agent's loop and leaves quarantine only with a named cause",
+        "trigger": "A test fails without a change"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every change that moves code or adds a directory tree, file type or pipeline stage: each guard and analysis states what it covers, and a planted violation in the new place turns it red; a run that skipped part of its input reports not verified, never clean",
+        "trigger": "Code moves, or a new tree, file type or stage arrives"
+      }
+    ],
+    "related": [
+      "ae-022"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-011",
+    "symbol": "Cu",
+    "name": "Curated context",
+    "group": "context",
+    "reach": "change",
+    "durability": "months",
+    "problem": "The agent works from whatever it happens to find, misses a constraint written down elsewhere and rebuilds something that already exists.",
+    "observableTest": "Each task names the sources the agent needs (files, documents, constraints), and the session shows it read them and did not rebuild what already exists.",
+    "notWhen": "Listing sources for a task whose context is all in the files it changes, or adding loosely related documents: they fill the context without informing the work.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per repository",
+        "trigger": "A tool, MCP server or memory feature is added"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every task: scope named in the plan, fresh session"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every reviewed agent change",
+        "trigger": "The change missed a constraint or rebuilt something that exists"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-011.01",
+    "symbol": "Cb",
+    "name": "Context budget",
+    "group": "context",
+    "reach": "change",
+    "durability": "months",
+    "problem": "A long session degrades: the agent repeats itself, loses constraints it was given, and the work after that point quietly gets worse, while what it calls done may rest on steps nobody checked.",
+    "observableTest": "Long work is split into fresh sessions at planned points, each with a written handover a person has read; a session that repeats itself or drops a stated constraint ends early, with the same handover.",
+    "notWhen": "Splitting short work that fits comfortably in one session and shows none of the signs: a planned handover then costs more than it saves.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: the agent drafts the handover note, and a person reads it before the next session starts from it; for an unattended run the note reaches the next run only through a reviewed change"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every long task: handover, then a fresh session",
+        "trigger": "The agent repeats itself, drops a stated constraint, or the session was compacted"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every handover: the files changed since the task began, listed from git, never from the agent's summary"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every handover note stays with the change it belongs to, so the next session and a later audit read the same note"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every handover of unfinished or unverified work: the next session first checks the inherited code against the request and its evidence, then repairs it or restarts from the base; a fresh session on an unchecked tree is not a restart",
+        "trigger": "Work is handed over before it is verified, or a result is claimed late in a long session"
+      }
+    ],
+    "related": [
+      "ae-012"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-012",
+    "symbol": "Pl",
+    "name": "Plan, then run",
+    "group": "delegation",
+    "reach": "change",
+    "durability": "months",
+    "problem": "Larger work starts without an agreed plan, so the agent decides the shape of the solution alone and the person finds out at review, when changing course is expensive.",
+    "observableTest": "Larger work starts from a plan you approved, and the agent works through it.",
+    "notWhen": "Small, reversible changes within one session whose done criterion already fixes the approach: a plan there only restates the task.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every larger change: a person approves the plan, with a red acceptance test",
+        "trigger": "Work spans sessions, is handed off, or carries high stakes"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per coding tool: during planning, a file write through a shell command is refused by a deny rule or the sandbox; the planning mode never counts as the plan approval; no timer approves a plan",
+        "trigger": "The coding tool or its plan mode changes version"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every commit of planned work: plan and built code reconciled",
+        "trigger": "The implementation departs from the approved plan"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every plan before approval: each requirement names where it comes from (the request, a record in the workspace, or an assumption), and the approver reads the assumptions",
+        "trigger": "The request leaves requirements open"
+      }
+    ],
+    "related": [
+      "ae-013",
+      "ae-019"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-013",
+    "symbol": "Rd",
+    "name": "Review the diff",
+    "group": "verification",
+    "reach": "change",
+    "durability": "years",
+    "problem": "The review reads the agent's description of the change instead of the change, so whatever the description leaves out is accepted unseen.",
+    "observableTest": "The review reads the change itself. The agent's description of it is a claim.",
+    "notWhen": "Reading in full a change that the team's decision (ae-031) leaves to a check: reading everything everywhere thins the attention the decision reserves for the code that needs it.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every agent pull request in a tier where a person must read (ae-031): the person who launched the agent reads the diff and checks behaviour first, then a person other than the launcher approves; an agent's approval never counts",
+        "trigger": "A machine review or agent summary comes with the change"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: approvals bind to the tested diff and a later push dismisses them"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: an agent pull request approved only by the person who launched it cannot merge; a planted one proves it"
+      }
+    ],
+    "related": [
+      "ae-031",
+      "ae-022"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-013.01",
+    "symbol": "Rh",
+    "name": "Rehearse the real path",
+    "group": "verification",
+    "reach": "change",
+    "durability": "years",
+    "problem": "The tests pass, but the change breaks a real user journey through a dependency, a transition or an interruption that no test exercises.",
+    "observableTest": "Before a change that alters a user journey is accepted, the journey, named in advance, runs against a deployment of that change and its real dependencies, crossing the transitions named with it and one plausible interruption or failure. The record names the environment and deployed revision, the steps, what was observed and what was not verified. Test data stays apart from real user data.",
+    "notWhen": "Rehearsing every interruption one can imagine: one plausible interruption or failure on the named journey is the bar, and the rest belongs in tests once a rehearsal finds something.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: a way to deploy a change with its real dependencies (a preview or a release candidate), and a test namespace kept apart from real user data",
+        "trigger": "A new backing service, device class or deployment target is added"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every change that alters a user journey: the named journey runs on a deployment of that change, crossing its named transitions and one interruption, and the record is kept with the change",
+        "trigger": "A change touches storage, a time boundary, a network path or a device-specific feature"
+      },
+      {
+        "kind": "review",
+        "cadence": "After every defect that reached a preview or users while the suite was green: the journey list gains the path it took",
+        "trigger": "A release defect escapes the test suite"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every named journey that hands the user to a third-party service: the rehearsal follows it to its last effect on that user (a list subscription, a message, a charge, a record kept), observed in the third party's own record, and the record names the effects not observed",
+        "trigger": "A journey ends in or passes through a third-party service"
+      }
+    ],
+    "related": [
+      "ae-004",
+      "ae-010"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-014",
+    "symbol": "Fc",
+    "name": "Name the failure",
+    "group": "diagnosis",
+    "reach": "change",
+    "durability": "years",
+    "problem": "A failed run is fixed by changing several things at once (prompt, rules, model), so nobody learns which change mattered and the failure comes back.",
+    "observableTest": "When the agent fails, you name the likely cause (missing context, unclear task, wrong tool, model limit) and test that guess by changing one thing.",
+    "notWhen": "Varying more once a one-change test has confirmed the named cause: further variations add runs, not knowledge.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every failed agent run, before you touch prompt, model or code",
+        "trigger": "A fix is proposed before the failure has a name"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every fix: change one thing, rerun the same tasks several times",
+        "trigger": "A prompt, rule, model or harness change is proposed as the fix"
+      },
+      {
+        "kind": "review",
+        "cadence": "Per batch of about 50 to 100 collected failures: each carries one written reason; the reasons are grouped and counted, and a rule promoted from them names its category and count",
+        "trigger": "The same failure mode shows up across several sessions"
+      }
+    ],
+    "related": [
+      "ae-002"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-015",
+    "symbol": "Ui",
+    "name": "Output is untrusted",
+    "group": "security",
+    "reach": "change",
+    "durability": "years",
+    "problem": "Model output reaches a shell, a query or a page as raw text, so whatever the model was led to write runs with the application's rights.",
+    "observableTest": "Model output reaches a shell, a query or a web page only through that sink's safe interface (parameters, escaping, an allow-list), never as raw text.",
+    "appliesWhen": "Applies when model output reaches a shell, a query or a web page, at run time or in a build script. Code an agent wrote is not model output in this sense.",
+    "notWhen": "Treating an output filter as the fix: where the sink's safe interface is in use, a filter on top adds little; where it is missing, a filter does not replace it.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per application, kept current with its architecture",
+        "trigger": "Model output starts to feed a new consumer: shell, query, page or URL fetch"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every change that passes model output to a shell, a query or a page",
+        "trigger": "An agent proposes a fix that filters the output instead of securing the sink"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-015.01",
+    "symbol": "Az",
+    "name": "Authorization tests",
+    "group": "security",
+    "reach": "change",
+    "durability": "years",
+    "problem": "An endpoint returns another user's object because an ownership check is missing or was removed, and no test notices.",
+    "observableTest": "Every endpoint that takes an object ID has a test in which one user asks for another user's object and is refused; a planted removal of an ownership check, or of a row policy in the database, turns a named test red.",
+    "notWhen": "Writing a second refusal test for the same endpoint, the same role and the same ownership path: a test for another path or role is not a duplicate.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per application: one refusal test per endpoint that takes an object ID"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every agent change that touches authorization, or a migration that changes row policies: reviewed like a deleted test",
+        "trigger": "A permission error is fixed by loosening a check or a policy"
+      },
+      {
+        "kind": "review",
+        "cadence": "At each release: a planted removal of an ownership check turns a named test red"
+      }
+    ],
+    "related": [
+      "ae-010"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-016",
+    "symbol": "Pt",
+    "name": "Prototype to learn",
+    "group": "shaping",
+    "reach": "change",
+    "durability": "years",
+    "problem": "Code written to answer a question slides into the product without the plan and review the real build would get, or the question it was meant to answer is never written down.",
+    "observableTest": "A prototype starts with a stated question, and its end is recorded: what it taught, and whether it was thrown away or rebuilt through the normal plan and review. The prototype's own branch never merges.",
+    "appliesWhen": "Applies when the work included a prototype: code written to answer a question and meant to be thrown away. A feature branch or an approximation alone is not a prototype.",
+    "notWhen": "The question can be answered by reading the documentation or by a small test: a prototype with its own branch and record is more than the question needs.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every prototype, before the first prompt"
+      },
+      {
+        "kind": "decision",
+        "cadence": "When the prototype has answered its question",
+        "trigger": "The question is answered or its time box runs out"
+      }
+    ],
+    "related": [
+      "ae-034"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-017",
+    "symbol": "Ho",
+    "name": "Hand it over",
+    "group": "adoption",
+    "reach": "system",
+    "durability": "years",
+    "problem": "The agent setup works only for the person who built it: when they are away nobody can run it, or a colleague runs it and gets different results without noticing.",
+    "observableTest": "A colleague runs your agent setup without you, from what is written down, and a dated record of that run shows the same checks fired, the run log was kept, and the results stayed within the spread of your own repeated runs.",
+    "notWhen": "The setup still changes every week and only its owner uses it: a handover run then tests a version that will not last. Run it when a second person is about to rely on it.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per repository, kept current with every change to the setup"
+      },
+      {
+        "kind": "review",
+        "cadence": "Once before calling the setup done, then when its owner changes",
+        "trigger": "The owner is away for a sprint or a new developer joins"
+      },
+      {
+        "kind": "practice",
+        "cadence": "After each handover run: whatever the colleague had to ask becomes written setup or a script that runs the same checks",
+        "trigger": "The colleague needed the owner during the run"
+      }
+    ],
+    "related": [
+      "ae-029"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-018",
+    "symbol": "Ef",
+    "name": "Evals for a feature",
+    "group": "ai-products",
+    "reach": "change",
+    "durability": "years",
+    "problem": "An AI feature ships on a few examples tried by hand, so its real failure rate is unknown and a model or prompt change can make it worse unnoticed.",
+    "observableTest": "An AI feature has representative test cases and a pass threshold, agreed before it ships, and met over repeated runs of each case.",
+    "appliesWhen": "Applies when the product ships a feature whose output a model produces at run time, including extraction a person then confirms. Answers recorded once from a model are content, not a feature.",
+    "notWhen": "Growing the case set or tightening the threshold beyond what the decision to ship needs: representative cases and an agreed threshold over repeated runs are the bar, not a benchmark.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per AI feature, before it ships"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every change to prompts, model version, tools or data: each case runs several times, and the result names the number of runs and how many cases passed in all of them"
+      },
+      {
+        "kind": "review",
+        "cadence": "On a fixed schedule after launch",
+        "trigger": "A production failure or a new model version"
+      },
+      {
+        "kind": "review",
+        "cadence": "Before the pass threshold is trusted: a person checks a sample of the failing cases themselves; a case that rejects a correct answer is fixed or removed"
+      },
+      {
+        "kind": "review",
+        "cadence": "Where a model grades the cases: before its scores count, and after any change to its prompt or model, a person labels cases the grader was never tuned on, the grader runs on them once, and both rates are reported (correct answers it passes, wrong answers it fails); scores from two grader versions are not read as a trend",
+        "trigger": "A model grades the cases, or its prompt or model changes"
+      }
+    ],
+    "related": [
+      "ae-036"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-019",
+    "symbol": "Tr",
+    "name": "Name the trade-off",
+    "group": "fundamentals",
+    "reach": "system",
+    "durability": "years",
+    "problem": "The agent adds a dependency, a data store or a remote call as a side effect of the task, and the team inherits its cost without anyone having chosen it.",
+    "observableTest": "Before code is written, the plan names the design choices the agent made (a new dependency, data store, remote call or boundary) and what each costs, and a person accepts them.",
+    "notWhen": "The plan adds no new dependency, data store, remote call or boundary: listing the costs of choices already made and in place adds reading without a decision.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every plan, before the agent writes code"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Before each consequential design choice",
+        "trigger": "The agent adds a dependency, data store, remote call or boundary"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every pull request, decision list read before the diff"
+      }
+    ],
+    "related": [
+      "ae-012"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-020",
+    "symbol": "Sk",
+    "name": "Skills and tools",
+    "group": "context",
+    "reach": "system",
+    "durability": "months",
+    "problem": "The model, tools and skills behind the agent change under the team without notice, and skills pile up whether or not they help, so results drift and nobody can say why.",
+    "observableTest": "The model, the coding tool and the skills, plugins and tool servers the agent uses are pinned to a version and reviewed like code: delegated work names its model (no automatic choice or fallback), and a skill stays only while runs with and without it show that it helps.",
+    "notWhen": "Comparing runs with and without a skill nobody relies on: removing it is cheaper than measuring it.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per tool",
+        "trigger": "A new skill, tool server or plugin is proposed"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every upgrade of a skill, server or plugin",
+        "trigger": "A dependency update changes a skill shipped inside a package"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every quarter: pinned versions and the end dates of the pinned model and tools",
+        "trigger": "A new model ships, or a tool gets new access"
+      },
+      {
+        "kind": "review",
+        "cadence": "Each check that must run every time: in a hook or the pipeline, not only in a skill the agent may or may not pick"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every new or changed skill: the same held-back tasks run with and without it, with the whole skill library installed; a skill that does not help, or takes its neighbours' tasks, is not installed, and one that stops helping is removed"
+      }
+    ],
+    "related": [
+      "ae-029"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-020.01",
+    "symbol": "Td",
+    "name": "Tool design",
+    "group": "context",
+    "reach": "system",
+    "durability": "months",
+    "problem": "An agent calls a tool wrongly or gives up after an error, because the description, schema or error message does not tell it what to do next.",
+    "observableTest": "A tool you build for agents has a clear description and schema, and its errors tell the agent what to do next: a session shows it recovering from one.",
+    "appliesWhen": "Applies when the work built a tool whose intended user is an agent: a tool server, an agent-facing command or a context generator made for agents. A command line with machine-readable output counts only when it was built for agents to call.",
+    "notWhen": "Polishing the description and errors of a tool the agent already calls correctly and recovers from: the session that shows the recovery is the evidence, more wording is not.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per tool: description, schema and error messages written for the agent"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every new tool: watch the agent use it on real tasks, then change the tool before the prompt",
+        "trigger": "The agent calls the tool wrongly or gives up after an error"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-021",
+    "symbol": "Pa",
+    "name": "Parallel agents",
+    "group": "delegation",
+    "reach": "system",
+    "durability": "months",
+    "problem": "Several agents work at once on overlapping code, and their changes collide at merge, or pass one by one and fail together.",
+    "observableTest": "Before agents work in parallel, the plan names what keeps their work apart: separate files, separate layers behind a stable interface, or a set order in which the changes land. Where nothing does, the work runs in sequence, and changes that run together pass the checks together.",
+    "notWhen": "The work fits in sequence within the time available: running it in parallel then adds coordination without saving time.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: one worktree and branch per agent, each in its own sandbox"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every merge: checks run on a branch up to date with main or in a merge queue",
+        "trigger": "Several agents reach the release path at once: queue it"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Once per team: how many agents one person runs at a time",
+        "trigger": "The ship queue backs up or reviews start slipping"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every new parallel setup: measured against one agent on the same held-back tasks (accepted runs, tokens, time, integration rework)"
+      }
+    ],
+    "related": [
+      "ae-003",
+      "ae-022"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-022",
+    "symbol": "Ga",
+    "name": "Independent gates",
+    "group": "verification",
+    "reach": "system",
+    "durability": "years",
+    "problem": "The agent whose work is judged can also change, skip or pass the check that judges it, so a green result says nothing about the work.",
+    "observableTest": "The merge verdict comes from the pipeline: it runs the check on the committed tree in a clean checkout and posts the result under its own identity; the agent can neither change, skip nor pass that check on its own, a required check that was skipped or did not finish blocks the merge, and every change to the check is reviewed by a person.",
+    "notWhen": "Adding a second pipeline or verifier when the existing check already runs on the committed tree under its own identity and the agent cannot change it: duplication adds cost, not independence.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: gate files protected, required check accepted only from CI"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every change: the gate runs in CI on the committed tree and decides the merge"
+      },
+      {
+        "kind": "review",
+        "cadence": "Once a year: plant failures, a skipped required check and a verdict tamper in a throwaway branch",
+        "trigger": "The pipeline, a gate script or the verifier changes"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Every pipeline file the agent adds or edits: an automatic injection check before its owner reviews it; a file found vulnerable is removed from every branch"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: every required check is reported by a job that always runs and fails unless the check it stands for finished",
+        "trigger": "A required check gets a path, branch, actor or other run condition, or a new check becomes required"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Every gate where a model gives the verdict, including a model that reviews permission requests: denials are counted per task, and after a denial the next attempt goes to a person, not to another try",
+        "trigger": "A model starts to decide whether the agent's work or request goes through"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-023",
+    "symbol": "Sb",
+    "name": "Stop and roll back",
+    "group": "diagnosis",
+    "reach": "system",
+    "durability": "months",
+    "problem": "An unattended run goes on past the point where it should have stopped (looping, spending, touching more than intended), and nobody can stop it or say what it changed.",
+    "observableTest": "Every unattended run has a cap set outside the agent (turns, time or spend) and a stop it cannot talk past; a run that reaches the cap ends as not verified; logs outside its write access show what it changed, its work sits in a branch you can drop, and a dated drill shows the stop ends every process the run started and revokes every credential the run was issued or obtained.",
+    "notWhen": "Drilling the stop more often than the schedule the team set while the stop path, the runner and the credential setup are unchanged: an extra drill repeats the last one. A change to any of them makes a new drill due at once.",
+    "activities": [
+      {
+        "kind": "decision",
+        "cadence": "Before each unattended or goal run: who or what stops it, on which signal",
+        "trigger": "A new unattended run, loop or automation is set up"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per team: a hard stop plus a branch or copy the run's work can be dropped from",
+        "trigger": "A new runner, agent product or credential path is adopted"
+      },
+      {
+        "kind": "review",
+        "cadence": "A dated drill before the first unattended run, then on a schedule the team sets",
+        "trigger": "The stop path, the runner or the credential setup changes"
+      }
+    ],
+    "related": [
+      "ae-025"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-024",
+    "symbol": "Sp",
+    "name": "Sandbox and rights",
+    "group": "security",
+    "reach": "system",
+    "durability": "months",
+    "problem": "The agent runs with the user's full rights, so a mistaken or injected action can reach anything the user can.",
+    "observableTest": "The agent runs in a sandbox with only the rights its task needs, set in managed settings a project file cannot loosen: a planted denied action is refused, and every agent tool installed on the machine, used or not, refuses to start in its bypass mode.",
+    "notWhen": "Denying rights the task needs in order to look strict: the agent then asks for broad exceptions and people route around the sandbox. Least privilege means the rights the task needs, not fewer.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per machine and repository, enforced through managed settings",
+        "trigger": "An agent tool, subagent or tool server is installed or updated"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every permission or policy change: decided on what it newly allows, compared with the current policy",
+        "trigger": "The agent asks for more access"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every quarter, and on every model or agent version change",
+        "trigger": "A new model version or a sandbox security advisory ships"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every gate run: a test identity attempts one planted denied action, and the gate fails if it is allowed",
+        "trigger": "The sandbox, managed settings or an agent tool changes"
+      }
+    ],
+    "related": [
+      "ae-023"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-025",
+    "symbol": "Dw",
+    "name": "One-way doors",
+    "group": "shaping",
+    "reach": "system",
+    "durability": "years",
+    "problem": "An agent takes a step that cannot be undone (deleting data or history, publishing, sharing data for training) without anyone having decided that it may.",
+    "observableTest": "The steps that cannot be undone (deleting data or version history, publishing, letting a provider train on your data) are listed for the repository; each names the role that approves it, and the approval lands in a record the agent cannot write.",
+    "notWhen": "Asking a person to approve a step that is not on the one-way list, that version control or a tested backup out of the run's reach fully reverses, and that no policy requires approval for: approvals on reversible steps teach people to approve without reading. Approvals a policy requires stay.",
+    "activities": [
+      {
+        "kind": "decision",
+        "cadence": "Before each step that cannot be undone",
+        "trigger": "Deleting data or version history, printing, publishing IDs, letting a provider train on data"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository, re-checked when the tool set changes",
+        "trigger": "A new deploy command, CLI or MCP server is added"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every decision that comes with options"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: the forge refuses force pushes and branch or remote deletion for the agent's identity"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per data store the agent can reach: its backups sit where the agent's credentials cannot delete them, and a restore has been tested",
+        "trigger": "The agent gets a credential for a new data store, or the store's backup setup changes"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-026",
+    "symbol": "Mb",
+    "name": "Measure before and after",
+    "group": "adoption",
+    "reach": "organisation",
+    "durability": "years",
+    "problem": "The team believes agents made it faster or better, but there is no comparison on comparable work, no quality figure beside the speed figure, and other changes in the same period explain as much.",
+    "observableTest": "The team measured before and after on comparable work over at least a quarter, paired every speed figure with a quality figure, names what else changed in between, and every figure says what it counts, over which window and population.",
+    "notWhen": "A person trying a tool for a few weeks: the quarter-long comparison serves a decision to roll agents out to teams, not a first trial.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per team, before agents or champions start"
+      },
+      {
+        "kind": "review",
+        "cadence": "At each measurement point, on the same held-back tasks",
+        "trigger": "A model, harness, tool or rollout change"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Before each rollout wave",
+        "trigger": "Agents are about to reach more teams"
+      },
+      {
+        "kind": "review",
+        "cadence": "Before a model, effort or harness change is credited: the same tasks run several times under the current setup first, and the change counts only where it moves results beyond that setup's own run-to-run spread"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per team, before the first measurement: records are keyed by task, not by person, and no review form names an engineer's AI usage"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Every held-back task made from the team's solved work: its answer cannot be reached from the agent's environment, neither in later commits, refs and tags nor in a store that grew after the task",
+        "trigger": "A held-back task is made by reverting or deleting a solution"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Before a result on replayed past tasks is credited: it counts for the class of tasks the replay covered, not for the work ahead",
+        "trigger": "A model, harness or setting is chosen on replayed past tasks"
+      }
+    ],
+    "related": [
+      "ae-037",
+      "ae-030"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-027",
+    "symbol": "Rg",
+    "name": "Retrieval and grounding",
+    "group": "ai-products",
+    "reach": "system",
+    "durability": "months",
+    "problem": "An AI feature answers from retrieved documents, but only the final answers are checked, so a retrieval failure looks like a model failure and gets fixed in the wrong place.",
+    "observableTest": "Retrieval has its own test set, and the answers are also tested end to end.",
+    "notWhen": "Tuning retrieval further while the end-to-end answers already meet their agreed threshold: improve retrieval where the end-to-end tests fail.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per retrieval feature, before launch"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every change to the retriever, chunking, index or embedding model"
+      },
+      {
+        "kind": "review",
+        "cadence": "On a fixed schedule once real traffic exists",
+        "trigger": "Real queries arrive or the document corpus changes"
+      }
+    ],
+    "related": [
+      "ae-018"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-028",
+    "symbol": "Dc",
+    "name": "Design for change",
+    "group": "fundamentals",
+    "reach": "organisation",
+    "durability": "years",
+    "problem": "Each agent change is acceptable on its own, but over months changes touch more modules and add more complexity, and the code gets harder to change for people and agents alike.",
+    "observableTest": "At fixed points the team measures a representative change: it still touches only the modules it should, and complexity and static-analysis findings per change, read beside its size, have not risen since the baseline.",
+    "notWhen": "Treating the fixed-point measurement as a gate on single changes: the per-pull-request check guards each change, the fixed points read the trend, and one noisy change is not a trend.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per repository, before the agent's first task"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every pull request: complexity, duplication and static-analysis findings in the touched files may not grow against main; growth needs a named approver",
+        "trigger": "An agent change adds much more code than the fix needs"
+      },
+      {
+        "kind": "review",
+        "cadence": "At day 90 and day 180, then at each release",
+        "trigger": "A representative change touches more modules than at baseline"
+      }
+    ],
+    "related": [
+      "ae-019"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-029",
+    "symbol": "Hc",
+    "name": "Harness as code",
+    "group": "context",
+    "reach": "organisation",
+    "durability": "months",
+    "problem": "Each project and person runs a different, unreviewed variant of the agent setup, so the checks and approvals a merge passes depend on who made it.",
+    "observableTest": "The team's shared harness (instructions, skills, hooks) has a named owner and changes only through reviewed changes, every project goes through the same checks and approvals to merge, and what must hold sits in hooks or managed settings that no project or personal file can loosen.",
+    "notWhen": "Building shared ownership and managed settings for a setup one person uses in one project: start when a second team or coding tool adopts it.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per organisation, then kept by a named owner",
+        "trigger": "A second team or another coding tool adopts the setup"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every change to the shared harness, as a reviewed diff"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Before the first shared rollout",
+        "trigger": "A team, coding tool or unattended run is added"
+      },
+      {
+        "kind": "review",
+        "cadence": "At every framework release and model change",
+        "trigger": "A new model or a major framework version ships"
+      },
+      {
+        "kind": "review",
+        "cadence": "At each model change or shared-harness release: the same held-back tasks run under each project's setup; the results agree within the noise, or the difference is traced to a named override"
+      },
+      {
+        "kind": "review",
+        "cadence": "Each shared-harness release: a planted loosening in a project file and in a personal file changes nothing"
+      }
+    ],
+    "related": [
+      "ae-002",
+      "ae-020"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-030",
+    "symbol": "Lc",
+    "name": "Agentic lifecycle",
+    "group": "delegation",
+    "reach": "organisation",
+    "durability": "months",
+    "problem": "Agents spread into the stages of the work one tool at a time, and nobody can say which decisions still belong to named people.",
+    "observableTest": "The team has a written map of its stages that names, for each, whether agents work there and which decisions stay with named people, and the agent cannot record those decisions itself.",
+    "notWhen": "Redrawing the map for a new tool inside a stage already mapped: the map changes when agents enter a stage or a decision moves, not when a tool changes.",
+    "activities": [
+      {
+        "kind": "decision",
+        "cadence": "Once per team: which stages agents run and which decisions stay with named people",
+        "trigger": "A new model, coding tool or task class is adopted"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every release and model change: a written pruning pass over the team's agent rules"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every incident review: did agent code or change volume outrun review and testing"
+      },
+      {
+        "kind": "review",
+        "cadence": "Each audit cycle: the decision log is read for decisions recorded on a person's behalf"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Once per team: who follows releases of models, coding tools and security advisories, and starts the reviews whose trigger they are",
+        "trigger": "The person who follows them leaves or changes role"
+      }
+    ],
+    "related": [
+      "ae-031"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-030.01",
+    "symbol": "Gw",
+    "name": "Govern who builds",
+    "group": "delegation",
+    "reach": "organisation",
+    "durability": "months",
+    "problem": "A person who is not an engineer changes code through an agent, and the change merges without the engineer who owns that code having seen it.",
+    "observableTest": "A non-engineer's account cannot push to a protected branch, and its agent's pull request cannot merge without the engineering owner of every path it touches; a test account that tries both is refused both times.",
+    "appliesWhen": "Applies when people who are not engineers can change the repository through an agent, or are about to. Not applicable only when every contributor is known to be an engineer; when the contributors are unknown, it is can't tell.",
+    "notWhen": "Adding reviewers whom no policy requires and who do not know the touched code: the code owners' review is what the test asks for. Reviewers a policy requires stay.",
+    "activities": [
+      {
+        "kind": "decision",
+        "cadence": "Before anyone outside engineering launches an agent on product code",
+        "trigger": "A new role or team asks to build with agents"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository, kept current as roles change"
+      },
+      {
+        "kind": "review",
+        "cadence": "Once at setup, then whenever permissions or roles change: the planted push and the planted pull request again",
+        "trigger": "Branch protection, code owners or the role list changes"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-031",
+    "symbol": "Hr",
+    "name": "Decide what people read",
+    "group": "verification",
+    "reach": "organisation",
+    "durability": "years",
+    "problem": "Nobody has decided which code a person must read, so review is either everything, and gets skimmed, or whatever the reviewer has time for.",
+    "observableTest": "The team has decided which code a person must read and which a check may accept.",
+    "notWhen": "Reopening the decision for every change: it is revisited when a new system, path or task class goes to agents, or when unreviewed merges rise without a decision.",
+    "activities": [
+      {
+        "kind": "decision",
+        "cadence": "Once per team: per path or tier, whether a person must read or a check may accept",
+        "trigger": "A new system, path or task class is handed to agents"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: the tiers encoded in code owners and branch protection"
+      },
+      {
+        "kind": "review",
+        "cadence": "Each audit cycle: seed known faults and count what each human step catches",
+        "trigger": "Merges without a person's review rise and nobody decided it"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Each path or change class a check may accept without a person: a named owner holds its risk; gate files, pipeline files, tests and migrations are never in it; its rollback is drilled; a post-deploy alert reaches the owner"
+      }
+    ],
+    "related": [
+      "ae-022"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-032",
+    "symbol": "Li",
+    "name": "Learn from incidents",
+    "group": "diagnosis",
+    "reach": "organisation",
+    "durability": "years",
+    "problem": "Agent incidents are fixed and forgotten, so the same class comes back and nobody knows whether the last corrective action did anything.",
+    "observableTest": "Every agent incident ends in a recorded corrective action, and you check later whether it worked.",
+    "notWhen": "A full review of a near miss that an existing guard caught as designed: record it, and review in depth when a guard did not hold or the class recurs.",
+    "activities": [
+      {
+        "kind": "practice",
+        "cadence": "Every agent incident or near miss, in its review",
+        "trigger": "An agent incident or near miss is reported"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Each rule added from an incident: named approver, owner, dated promotion",
+        "trigger": "An incident review proposes a new rule or guard"
+      },
+      {
+        "kind": "review",
+        "cadence": "At every release and every model change",
+        "trigger": "The same incident class recurs after its corrective action"
+      }
+    ],
+    "related": [
+      "ae-029"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-033",
+    "symbol": "Tm",
+    "name": "Threat model",
+    "group": "security",
+    "reach": "organisation",
+    "durability": "years",
+    "problem": "Untrusted content (issues, web pages, documents, tool output) reaches the agents, and nobody knows what an instruction hidden in it could make them touch.",
+    "observableTest": "The team keeps a current map of where untrusted content reaches its agents and what it could touch, and a planted instruction in that content reaches nothing the map rules out.",
+    "notWhen": "Mapping sources that never reach an agent: the map covers where untrusted content meets agents, and a general security inventory belongs elsewhere.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per agent system, drawn with the developers who build it"
+      },
+      {
+        "kind": "review",
+        "cadence": "Whenever the agent's capabilities change",
+        "trigger": "A new tool, MCP server, skill, model version or data source is added"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every listed threat, until a control exists and a test shows it holds"
+      }
+    ],
+    "related": [
+      "ae-024"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "ae-034",
+    "symbol": "Wb",
+    "name": "Decide what to build",
+    "group": "shaping",
+    "reach": "organisation",
+    "durability": "years",
+    "problem": "Agents make building cheap, so features get built because they can be, without a user problem behind them or a date on which anyone checks whether they helped.",
+    "observableTest": "Each feature you build starts from a user problem and a stop criterion agreed before building, and you check the evidence on the agreed date after it ships.",
+    "notWhen": "Fixes and upkeep that restore agreed behaviour: a stop criterion and a check date are for new features, not for keeping what exists working.",
+    "activities": [
+      {
+        "kind": "decision",
+        "cadence": "Before each feature is approved"
+      },
+      {
+        "kind": "review",
+        "cadence": "After each feature ships, on a date set when it was approved",
+        "trigger": "The agreed stop evidence shows up"
+      },
+      {
+        "kind": "practice",
+        "cadence": "At the start of each new feature area, and at least once a quarter: a day or more in the customer's setting"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-035",
+    "symbol": "Gw",
+    "name": "Govern who builds",
+    "group": "delegation",
+    "reach": "organisation",
+    "status": "retired",
+    "replacedBy": "ae-030.01"
+  },
+  {
+    "id": "ae-036",
+    "symbol": "Rp",
+    "name": "AI in production",
+    "group": "ai-products",
+    "reach": "organisation",
+    "durability": "months",
+    "problem": "A live AI feature degrades, costs more or drifts after launch, and nobody notices until users do, because nobody watches real traffic for it.",
+    "observableTest": "A live AI feature has a quality check on real traffic, a cost budget and a drift alert, each with a person who acts on it.",
+    "appliesWhen": "Applies when a model is called on live user traffic. Not applicable when no model runs at request time; can't tell when that is unknown.",
+    "notWhen": "Adding dashboards once the quality check, the cost budget and the drift alert each have a person who acts on them: signals nobody acts on add noise.",
+    "activities": [
+      {
+        "kind": "setup",
+        "cadence": "Once per AI feature, before launch"
+      },
+      {
+        "kind": "review",
+        "cadence": "Weekly in the first month after launch, then monthly; drift and budget as alerts in between",
+        "trigger": "A model snapshot, prompt or provider changes, or cost passes its budget"
+      },
+      {
+        "kind": "decision",
+        "cadence": "Each time the model choice is revisited",
+        "trigger": "A new model release changes price or quality on the task"
+      }
+    ],
+    "related": [],
+    "status": "active"
+  },
+  {
+    "id": "ae-037",
+    "symbol": "Mk",
+    "name": "Mark agent work",
+    "group": "adoption",
+    "reach": "change",
+    "durability": "months",
+    "problem": "Nobody can tell which changes an agent made, so incidents, reviews and measurements cannot separate agent work from people's work.",
+    "observableTest": "Every change made through the team's agent runner carries its one marker, written by the tooling; the pipeline refuses a commit from an agent's identity without it, and every agent run in the log links to the changes it made.",
+    "notWhen": "Adding markers by hand or after the fact: a marker the tooling did not write is a claim, so it adds work without becoming evidence.",
+    "activities": [
+      {
+        "kind": "decision",
+        "cadence": "Once per team: one marker convention, for example a trailer",
+        "trigger": "A target repository has its own policy: read it at its current revision"
+      },
+      {
+        "kind": "setup",
+        "cadence": "Once per repository: the harness or the pipeline writes the marker, and the pipeline refuses an agent commit without it"
+      },
+      {
+        "kind": "review",
+        "cadence": "Every release: each agent run in the log links to the changes it produced, and each of those changes carries the marker",
+        "trigger": "A run without linked changes, or a marked change without its run"
+      },
+      {
+        "kind": "practice",
+        "cadence": "Every marked change: it takes the review path the team set for agent work (ae-031); the marker routes the read, it does not replace it"
+      }
+    ],
+    "related": [
+      "ae-022",
+      "ae-031"
+    ],
+    "status": "active"
+  }
+]

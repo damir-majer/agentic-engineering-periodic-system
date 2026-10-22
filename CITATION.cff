@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+type: dataset
+title: "Agentic Engineering Periodic System"
+version: "2026.4.1"
+date-released: "2026-10-22"
+authors:
+  - family-names: Majer
+    given-names: Damir
+    affiliation: "ASE Academy"
+license: CC-BY-4.0
+repository: "https://github.com/damir-majer/agentic-engineering-periodic-system"
+url: "https://ase.academy/agentic-engineering/periodic-system/"
+keywords:
+  - agentic engineering
+  - coding agents
+  - software engineering

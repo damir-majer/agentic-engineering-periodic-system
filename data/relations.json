@@ -1,0 +1,98 @@
+[
+  {
+    "from": "ae-004",
+    "to": "ae-022",
+    "type": "complements",
+    "when": "Acceptance depends on a check outside the producer claim.",
+    "reason": "Evidence identity and acceptance authority are distinct questions.",
+    "limit": "Evidence presence alone does not establish independent control."
+  },
+  {
+    "from": "ae-005",
+    "to": "ae-014",
+    "type": "complements",
+    "when": "A failed step can be located but its cause remains uncertain.",
+    "reason": "A specific record supports testing one causal hypothesis.",
+    "limit": "An obvious deterministic defect may need only a focused fix and regression."
+  },
+  {
+    "from": "ae-006",
+    "to": "ae-024",
+    "type": "distinguish",
+    "when": "The observed risk involves credentials or excessive capability.",
+    "reason": "Credential boundaries and effective rights address different mechanisms.",
+    "limit": "One successful refusal cannot establish all secrets or rights clauses."
+  },
+  {
+    "from": "ae-023",
+    "to": "ae-024",
+    "type": "complements",
+    "when": "An unattended run has effective action and duration boundaries.",
+    "reason": "The run needs appropriate rights before its stop limit is reached.",
+    "limit": "Neither a time cap nor a sandbox substitutes for the other test."
+  },
+  {
+    "from": "ae-003",
+    "to": "ae-021",
+    "type": "distinguish",
+    "when": "A change is being split and concurrent execution is considered.",
+    "reason": "Reviewable size does not establish independent parallel parts.",
+    "limit": "Do not add concurrency when the shared assumptions cannot be separated."
+  },
+  {
+    "from": "ae-011",
+    "to": "ae-002",
+    "type": "distinguish",
+    "when": "A worker lacks or ignores needed information.",
+    "reason": "Task-specific sources and persistent repository rules have different scopes.",
+    "limit": "Do not add permanent prose for every one-off omission."
+  },
+  {
+    "from": "ae-011.01",
+    "to": "ae-023",
+    "type": "distinguish",
+    "when": "Long work requires context renewal and execution limits.",
+    "reason": "Session handover and enforced run termination solve different problems.",
+    "limit": "Restarting a session does not establish cancellation or credential revocation."
+  },
+  {
+    "from": "ae-010",
+    "to": "ae-013.01",
+    "type": "complements",
+    "when": "Acceptance behavior includes an integration or real dependency transition.",
+    "reason": "A local regression and a real-path rehearsal provide different observations.",
+    "limit": "Do not claim all changes require the same broad end-to-end test."
+  },
+  {
+    "from": "ae-007",
+    "to": "ae-012",
+    "type": "prerequisite",
+    "when": "A larger task needs an approved plan before execution.",
+    "reason": "A plan needs a stated problem and completion condition to organize work.",
+    "limit": "This procedure does not invent plan approval or redefine either test."
+  },
+  {
+    "from": "ae-015",
+    "to": "ae-033",
+    "type": "distinguish",
+    "when": "Untrusted content can influence a privileged action.",
+    "reason": "Safe handling at a sink and mapping content-to-capability paths have different scopes.",
+    "limit": "Preserve ae-015 applicability; ordinary generated source code is not automatically sink-bound output."
+  },
+  {
+    "from": "ae-004",
+    "to": "ae-005",
+    "type": "distinguish",
+    "when": "An agent reported done and the result fails.",
+    "reason": "Evidence before done asks whether the done claim carried evidence tied to the acceptance criteria; Trace the run asks where the run went wrong, checked against a record the agent could not write.",
+    "limit": "Both can be missing at once; evidence for the claim does not locate the failure, and a located failure does not repair the claim."
+  },
+  {
+    "from": "ae-013",
+    "to": "ae-022",
+    "type": "distinguish",
+    "when": "A change has been reviewed carefully and is about to merge.",
+    "reason": "Review the diff is about what the review reads; Independent gates is about who gives the merge verdict and whether the agent can change, skip or pass it.",
+    "limit": "A careful review does not make the acceptance independent, and an independent gate does not read the change."
+  }
+]
